@@ -30,8 +30,10 @@
               </div>
             </div>
             <div class="modal-new-field" v-if="state.addingNewField">
-              <input class="modal-text-field" type="text" placeholder="Поле" v-model.lazy="state.newKey">
-              <input class="modal-text-field" type="text" placeholder="Значение" v-model.lazy="state.newValue">
+              <input class="modal-text-field" type="text" placeholder="Поле" v-model="state.newKey"
+                     @keydown.enter="saveNewField()" @keydown.esc="abortNewField">
+              <input class="modal-text-field" type="text" placeholder="Значение" v-model="state.newValue"
+                     @keydown.enter="saveNewField()" @keydown.esc="abortNewField">
               <button @click="saveNewField()">СОХР</button>
             </div>
             <div class="modal-fields-buttons">
@@ -45,7 +47,7 @@
           </div>
           <div class="modal-footer">
             <slot name="footer">
-              X = {{ state.posX + 'px' }}, Y = {{ state.posY }}
+<!--              X = {{ state.posX + 'px' }}, Y = {{ state.posY }}-->
               <button
                   class="modal-default-button"
                   @click="$emit('save', id, title, {field: state.key, value: state.value})"
@@ -115,12 +117,24 @@ function addNewField(){
   state.addingNewField = true;
 }
 
+function abortNewField(){
+  state.newKey = null;
+  state.newValue = "";
+  state.addingNewField = false;
+}
+
 function saveNewField(){
+  if (!state.newKey || !state.newValue){
+    state.addingNewField = false;
+    return
+  }
   if (!state._prop){
     state._prop = {};
   }
   state._prop[state.newKey] = state.newValue;
   state.addingNewField = false;
+  state.newKey = null;
+  state.newValue = "";
 }
 
 function delField(key){

@@ -15,7 +15,8 @@
             <slot name="header">default header</slot>
           </div>
           <div class="modal-body">
-            <input class="modal-text-field" type="text" placeholder="Название" v-model.lazy="state.fieldTitle">
+            <input class="modal-text-field" type="text" placeholder="Название" v-model="state.fieldTitle"
+            @keydown.enter="$emit('save', id, title, {title: state.fieldTitle, field: state.key, value: state.value})">
             <div class="modal-text-fields">
 <!--              <input class="modal-text-field" type="text" placeholder="Поле" v-model.lazy="state.key">-->
 <!--              <input class="modal-text-field" type="text" placeholder="Значение" v-model.lazy="state.value">-->
@@ -23,7 +24,7 @@
           </div>
           <div class="modal-footer">
             <slot name="footer">
-              X = {{ state.posX + 'px' }}, Y = {{ state.posY }}
+<!--              X = {{ state.posX + 'px' }}, Y = {{ state.posY }}-->
               <button
                   class="modal-default-button"
                   @click="$emit('save', id, title, {title: state.fieldTitle, field: state.key, value: state.value})"
