@@ -3,8 +3,16 @@
     <div class="header">{{title? title : "Title Here"}}</div>
     <div class="filters">
       <ol class="sortingBtns">
-        <li><button class="filterBtn" @click="sorting='order'; sortingDirection=!sortingDirection">ПОР</button></li>
-        <li><button class="filterBtn" @click="sorting='alphabet'; sortingDirection=!sortingDirection">АЛФ</button></li>
+        <li>
+          <button class="filterBtn" @click="sorting='order'; sortingDirection=!sortingDirection"
+          v-if="sorting === 'order'">ПОР {{sortingDirectionSymbol}}</button>
+          <button class="filterBtn" @click="sorting='order'; sortingDirection=!sortingDirection" v-else>ПОР</button>
+        </li>
+        <li>
+          <button class="filterBtn" @click="sorting='alphabet'; sortingDirection=!sortingDirection"
+            v-if="sorting === 'alphabet'">АЛФ {{sortingDirectionSymbol}}</button>
+          <button class="filterBtn" @click="sorting='alphabet'; sortingDirection=!sortingDirection" v-else>АЛФ</button>
+        </li>
       </ol>
       <input type="text" class="filterText" v-model="wordFilter">
     </div>
@@ -87,7 +95,8 @@ export default {
       selectedField: null,
       wordFilter: "",
       sorting: "order",
-      sortingDirection: true // true - прямо, false - обратно
+      sortingDirection: true, // true - прямо, false - обратно
+      sortingDirectionSymbol: ""
     }
   },
   methods: {
@@ -98,7 +107,9 @@ export default {
       }
       this.fields.push(field.title);
       this.level[field.title] = { toDelete: false };
-      this.level[field.title][field.field] = field.value;
+      if (field.title && field.field) {
+        this.level[field.title][field.field] = field.value;
+      }
     },
     addNewModal(){
       this.addModals.push({id: this.addModalsId++, title: `sad${this.addModalsId}`, height: this.modalsMaxHeight++});
@@ -181,6 +192,9 @@ export default {
           this.fields.push(k);
         }
       }
+    },
+    sortingDirection(){
+      this.sortingDirectionSymbol = this.sortingDirection? "▼" : "▲"
     }
   },
   computed: {

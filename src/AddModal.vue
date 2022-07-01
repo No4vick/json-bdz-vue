@@ -6,7 +6,7 @@
            @mousedown="$emit('placeOnTop', id, title)"
       >
         <div class="modal-container">
-          <a @mousedown="state.onMove=true; updatePos()" @mouseup="state.onMove=false; updatePos()" style="user-select: none">asdsadsa</a>
+          <a @mousedown="state.onMove=true; updatePos()" @mouseup="state.onMove=false; updatePos()" style="user-select: none">--------</a>
           <button
               class="modal-close-button"
               @click="$emit('close', id, title)"
@@ -17,8 +17,8 @@
           <div class="modal-body">
             <input class="modal-text-field" type="text" placeholder="Название" v-model.lazy="state.fieldTitle">
             <div class="modal-text-fields">
-              <input class="modal-text-field" type="text" placeholder="Поле" v-model.lazy="state.key">
-              <input class="modal-text-field" type="text" placeholder="Значение" v-model.lazy="state.value">
+<!--              <input class="modal-text-field" type="text" placeholder="Поле" v-model.lazy="state.key">-->
+<!--              <input class="modal-text-field" type="text" placeholder="Значение" v-model.lazy="state.value">-->
             </div>
           </div>
           <div class="modal-footer">

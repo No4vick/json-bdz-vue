@@ -6,7 +6,7 @@
            @mousedown="$emit('placeOnTop', id, title)"
       >
         <div class="modal-container">
-          <a @mousedown="state.onMove=true; updatePos()" @mouseup="state.onMove=false; updatePos()" style="user-select: none">asdsadsa</a>
+          <a @mousedown="state.onMove=true; updatePos()" @mouseup="state.onMove=false; updatePos()" style="user-select: none">--------</a>
           <button
               class="modal-close-button"
               @click="$emit('close', id, title)"
